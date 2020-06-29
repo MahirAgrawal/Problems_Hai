@@ -1,0 +1,8 @@
+*.cpp~
+*.h~
+*.un~
+*.vim
+*.exe
+.gitignore~
+*.swp
+*.swp~
