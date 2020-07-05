@@ -1,3 +1,6 @@
+//GIVES FACTORIAL OF VERY LARGE NUMBERS 
+//TILL 50000! I HAVE PERSONALLY TESTED
+//DON'T KNOW THE UPPERLIMIT YET
 #include<iostream>
 #include"C:/users/lalit/c++_projects/my_time.h"
 #define cout std::cout

@@ -1,3 +1,5 @@
+//MY METHOD OF GETTING PERMUTATIONS
+//THE PERMUTATIONS ARE "NOT" IN LEXICOGRAPHICAL ORDER
 #include<iostream>
 #include<conio.h>
 #include<string.h>

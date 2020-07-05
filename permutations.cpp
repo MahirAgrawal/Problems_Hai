@@ -1,3 +1,5 @@
+//A ALGORITHM FOR NEXT AND PREVIOUS PERMUTATIONS OF 
+//WORD ACCORDING TO "LEXICOGRAPHICAL ORDER"
 #include<iostream>
 #include<string.h>
 #include<conio.h>

@@ -1,3 +1,4 @@
+//FINDS ALL THE PALINDROMIC SUBSTRINGS IN A GIVEN STRING
 #include<iostream>
 #include<string.h>
 #define cout std::cout
