@@ -3,7 +3,7 @@
 #define cout std::cout
 #define cin std::cin
 #define endl std::endl
-#define N 100000
+#define N 1000000
 void print_factorial(int n = 0)
 {
 unsigned short int array[N];
