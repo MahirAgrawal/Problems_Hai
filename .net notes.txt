@@ -1,0 +1,146 @@
+Console.WriteLine() - Outputs at the screen
+Console.ReadLine() - Reads string after that we have cast it to expected datatype
+E.g Convert.ToInt32(Console.ReadLine())
+
+Convert.To_desired_datatype(original_datatype) is the suitable method to convert original_datatype into datatype desired
+
+set property takes implicit variable named ***value***
+
+***indexer property syntax
+public T this[int i]{
+  get{return arr[i];}
+  set{arr[i]=value;}
+}
+
+Linq
+
+            //third query
+            row = (from customer in arr
+                  where customer.customerid.StartsWith('A')
+                  orderby customer.city descending 
+                  select customer).Take(2);
+            
+            var ans = arr.Where(cus => cus.customerid.StartsWith('A')).ToList<Customer>().Take(2);
+
+            int count = (from customer in arr 
+                        select customer).Count();
+
+
+DateTime.now() to get current date timestamp and store it in DateTime
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+MVC
+
+launchsettings.json: contains information about the profiles for different ports at which server is listening for requests from user.
+Has different ports for iis servers and different profiles.
+
+wwwroot folder: contains static files of website is stored in wwwroot like css,js, js libraries used and favicon used. All future static
+resources of site are stored by convention here in this folder.
+
+appsettings.json
+All App secrets will be in this json file. Configuration for app will be stored here like connection string will be stored here.
+
+program.cs
+Responsible for running the application. It will create builder object and use build function to build that builder object.
+
+First services will be added by:
+builder.Services.Add____()
+
+E.g. app.AddControllerWithViews();	
+
+and then after adding all services we build the object with obj.Build() function
+
+After this we add middlewares for our app by:
+app.Use______()
+
+E.g. app.UseHttpsRedirection();
+     app.UseRouting();
+     
+The middleware will be executed in the same order as specified in the program by use____() methods so order of application middlewares 
+be informed carefully.
+
+At last app is run by app.Run()
+
+
+
+********Controller
+
+Request is first recieved by Controller. 
+Handles the request specified by the user and interact with models and views to get the desired response
+
+
+routing pattern is considered after domain name: www.example.com/
+After '/' routing pattern is considered
+
+In MVC, first parameter is mapped to controller and second parameter is mapped to action of the specified controller
+third parameter is considered as id or some other variable passed
+
+https://localhost:5555/{controller}/{action}/{id?}
+
+E.g.
+
+https://localhost:5555/Home/Index
+
+This will call the Homecontroller and call Index action of that controller
+
+****************Making Models
+For using data annotations, include the system file to do that:
+
+using System.ComponentModel.DataAnnotations;
+E.g of data annotations 
+[Key] , [Required] , [Range(min,max)]
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Adding database string for actual changes to database
+
+*************in appsetting.json
+
+  "ConnectionStrings": {
+    "Connector":"Server=localhost;Database=master;Trusted_Connection=True;"
+  }
+
+
+************Addservices to program.cs builder object to make connection object of DB available to all classes
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("Connector")
+));
+
+*************add new folder of name "data" to have DBcontext class and play with Dbclass object
+Here we make ApplicationDbContext.cs to use the services of database specified in program.cs
+Here we also make Dbset to actually make tables that match with class in models
+
+public class ApplicationDbContext: DbContext{
+  
+  public ApplicationDbContext(DbContextOptions<ApplicationDbContext> option):base(option){} 
+  public DbSet<Product> products{get; set;} 
+}
+
+
+************ add changes to actual database
+dotnet ef migrations add intialCreate
+dotnet ef database update
+
+
+********** how to access ApplicationDBcontext in all classes of app
+Simply due to dependency injection in builder.services.AddDbcontext in program.cs, the ApplicationDbContext object will be available to all
+class constructor
+
+Just to get object we take it in constructor of the class and then we can assign reference of that object to class object and can use it
+readily.
+
+E.g.
+
+public class ProductController : Controller
+{
+    public ApplicationDbContext _db;//reference to hold dbcontext object
+
+    //get readily available in constructor of controller class
+    public ProductController(ApplicationDbContext db){
+      _db = db;//assign object to reference variable
+    }
+
+    //now we can use it any method we want
+    public IActionResult Index()
+    {
+        return View(_db.products.ToList());
+    }
+}
